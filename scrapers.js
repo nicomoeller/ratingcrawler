@@ -1,17 +1,17 @@
+require('dotenv').config();
+
 const puppeteer = require('puppeteer');
 const express = require('express');
+
 const app = express();
 
 // Airtable Objekt erstellen
-
 const Airtable = require('airtable');
-const base = new Airtable({apiKey: 'key3iD7Y3z6WC449f'}).base('appElFgjobSxAEMuv');
-
+const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('appElFgjobSxAEMuv');
 
 // Anbfrage der Einträge
-
 base('Scraping').find('recWECzZUxjrcQiwP', function(err, record) {
-    if (err) { console.error(err); return; } 
+    if (err) { console.error(err); return; }
     console.log(record.get('Scraping URL Provenexpert'));
 });
 
@@ -19,20 +19,16 @@ base('Scraping').find('recWECzZUxjrcQiwP', function(err, record) {
 //Startet Server auf Port 3000
 app.listen(3000, () => console.log('Server is running at 3000'));
 
-
-
 // Eingabe der URL
-const url = 'https://www.google.com/maps/place/INKLABS+Tattoo+Studio+-+Dresden/@51.0697931,13.7455276,17.26z/data=!4m5!3m4!1s0x4709cf17d2e6a06b:0x88d6367addb5dee6!8m2!3d51.0694148!4d13.7476674';
-
+// const url = 'https://www.google.com/maps/place/INKLABS+Tattoo+Studio+-+Dresden/@51.0697931,13.7455276,17.26z/data=!4m5!3m4!1s0x4709cf17d2e6a06b:0x88d6367addb5dee6!8m2!3d51.0694148!4d13.7476674';
+const url = "https://www.provenexpert.com/de-de/agentur-emilian/";
 
 //Delay Function (if needed)
 function delay(time) {
-    return new Promise(function(resolve) { 
+    return new Promise(function(resolve) {
         setTimeout(resolve, time)
     });
  }
-
-
 
 // Provenexpert Scraper
 async function scrapeProvenexpert(url)   {
@@ -161,7 +157,7 @@ switch (true) {
     case url.includes('provenexpert'):
         scrapeProvenexpert(url);
         break;
-    case url.includes('google'):    
+    case url.includes('google'):
         scrapeGmb(url);
         break;
     //case url.includes('facebook'):
