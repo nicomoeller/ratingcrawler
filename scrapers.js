@@ -7,7 +7,7 @@ const app = express();
 
 // Airtable Objekt erstellen
 const Airtable = require('airtable');
-const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('appElFgjobSxAEMuv');
+const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE_KEY);
 
 // Anbfrage der Einträge
 base('Scraping').find('recWECzZUxjrcQiwP', function(err, record) {
