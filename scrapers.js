@@ -20,8 +20,8 @@ base('Scraping').find('recWECzZUxjrcQiwP', function(err, record) {
 app.listen(3000, () => console.log('Server is running at 3000'));
 
 // Eingabe der URL
-// const url = 'https://www.google.com/maps/place/INKLABS+Tattoo+Studio+-+Dresden/@51.0697931,13.7455276,17.26z/data=!4m5!3m4!1s0x4709cf17d2e6a06b:0x88d6367addb5dee6!8m2!3d51.0694148!4d13.7476674';
-const url = "https://www.provenexpert.com/de-de/agentur-emilian/";
+const url = 'https://www.google.com/maps/place/INKLABS+Tattoo+Studio+-+Dresden/@51.0697931,13.7455276,17.26z/data=!4m5!3m4!1s0x4709cf17d2e6a06b:0x88d6367addb5dee6!8m2!3d51.0694148!4d13.7476674';
+// const url = "https://www.provenexpert.com/de-de/agentur-emilian/";
 
 //Delay Function (if needed)
 function delay(time) {
@@ -106,7 +106,7 @@ async function scrapeGmb(url)   {
     var anzahlstring = await anzahlunformatiert.replace(/([^0-9])/g, "");
 
     const anzahl = parseInt(anzahlstring);
-    const rating = ratingstring
+    const rating = parseFloat(ratingstring.replace(',','.'));
 
     // Print Ergebnis
     console.log({rating, anzahl});
